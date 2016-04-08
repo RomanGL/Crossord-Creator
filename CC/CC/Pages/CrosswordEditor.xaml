@@ -1,0 +1,88 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"             
+             xmlns:my="clr-namespace:Crossword_Application_Modern"
+             xmlns:UserTemplates="clr-namespace:Crossword_Application_Modern.UserTemplates" 
+             x:Name="userControl" x:Class="Crossword_Application_Modern.Pages.CrosswordEditor"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500" KeyDown="UserControl_KeyDown">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="RectangleTemplate">
+                <UserTemplates:WordRectangle x:Name="wordRect"/>
+            </ControlTemplate>
+
+            <ContentControl x:Key="enterGridSize">
+                <Grid>
+                    <TextBlock Text="Введите размер создаваемого кроссворда:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25"/>
+                    <TextBox Height="25"/>
+                </Grid>
+            </ContentControl>
+
+            <DataTemplate x:Key="wordTemplate">
+                <TextBlock Text="{Binding Word, Mode=OneWay}" ToolTip="{Binding Question}" MouseMove="TextBlock_MouseMove"/>
+            </DataTemplate>            
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Common/ButtonContent.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Effect>
+        <BlurEffect Radius="0"/>
+    </UserControl.Effect>
+    <Grid x:Name="mainGrid" Style="{StaticResource ContentRoot}" Margin="10,10,10,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="contentGrid" Style="{StaticResource ContentRoot}" Margin="0,0,0,44">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="{StaticResource SplitLeft}">
+                <TextBlock Style="{StaticResource Heading2}" VerticalAlignment="Top" ><Run Text="КРОССВО"/><Run Text="РД"/></TextBlock>
+                <Grid x:Name="crosswordGrid" Margin="0,21,0,0">
+                    <ScrollViewer x:Name="scrool" HorizontalScrollBarVisibility="Auto" 
+                                  CanContentScroll="True">
+                        <Canvas x:Name="contentCanvas" ClipToBounds="True" AllowDrop="True"
+                            DragEnter="contentCanvas_DragEnter" 
+                            DragLeave="contentCanvas_DragLeave" 
+                            Drop="contentCanvas_Drop" 
+                            Background="#00000000"/>
+                    </ScrollViewer>
+                </Grid>                
+            </Grid>
+            <GridSplitter Grid.Column="1" />
+            <Grid Margin="5,0,0,0" Grid.Column="2">
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock Text="СЛОВА" Style="{StaticResource Heading2}" />
+                        <ListBox x:Name="wordsListBox"
+                                 ItemTemplate="{StaticResource wordTemplate}" SelectionChanged="wordsListBox_SelectionChanged"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        <Grid x:Name="toolGrid" Height="Auto" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <mui:ModernButton Grid.Column="0" x:Name="openQA_Button" Content="Загрузить..." IconData="{StaticResource OpenIcon}" Style="{StaticResource MediumButtonSize}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="openQA_Button_Click" ToolTip="Загрузить список терминов для составления кроссворда." Margin="0,0,10,0"/>
+            <mui:ModernButton Grid.Column="1" x:Name="openGridButton" Content="Открыть сетку..." IconData="{StaticResource OpenGridIcon}" Style="{StaticResource MediumButtonSize}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="openGridButton_Click" ToolTip="Открыть файл сетки кроссворда для изменения." Margin="0,0,10,0"/>
+            <mui:ModernButton Grid.Column="2" x:Name="saveButton" Content="Сохранить" IconData="{StaticResource SaveIcon}" Style="{StaticResource MediumButtonSize}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="saveButton_Click" ToolTip="Сохранить сетку кроссворда." Margin="0,0,10,0"/>
+            <mui:ModernButton Grid.Column="3" x:Name="saveAsButton" Content="Сохранить как..." IconData="{StaticResource SaveAsIcon}" Style="{StaticResource MediumButtonSize}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="saveAsButton_Click" ToolTip="Сохранить сетку кроссворда в новый файл." Margin="0,0,10,0"/>
+            <mui:ModernButton Grid.Column="4" x:Name="saveAsPicture" Visibility="Collapsed" Content="В изображение..." IconData="{StaticResource SaveAsIcon}" Style="{StaticResource MediumButtonSize}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="saveAsPicture_Click" ToolTip="Сохранить кроссворд как картинку." Margin="0,0,10,0"/>
+        </Grid>
+        <Separator Height="13" Margin="0,0,0,34" VerticalAlignment="Bottom"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,31 @@
+﻿<mui:ModernWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="modernWindow" mc:Ignorable="d" x:Class="Crossword_Application_Modern.UpdateWindow"
+        Title="Crossword Creator" IsTitleVisible="True"
+        Width="640" Height="440"                  
+        ContentSource="/Content/UpdatesPage.xaml" MinWidth="640" MinHeight="440" d:DesignWidth="786" ResizeMode="CanMinimize" Loaded="ModernWindow_Loaded">
+
+    <mui:ModernWindow.Resources>
+        <Storyboard x:Key="BlurAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(BlurEffect.Radius)" Storyboard.TargetName="modernWindow">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="10"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="UnBlurAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(BlurEffect.Radius)" Storyboard.TargetName="modernWindow">
+                <EasingDoubleKeyFrame KeyTime="0" Value="10"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </mui:ModernWindow.Resources>
+    <mui:ModernWindow.Effect>
+        <BlurEffect Radius="0"/>
+    </mui:ModernWindow.Effect>
+    <mui:ModernWindow.MenuLinkGroups>
+        <mui:LinkGroup DisplayName="доступно обновление">            
+        </mui:LinkGroup>        
+    </mui:ModernWindow.MenuLinkGroups>    
+</mui:ModernWindow>

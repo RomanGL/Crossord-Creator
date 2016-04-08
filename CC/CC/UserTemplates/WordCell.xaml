@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.UserTemplates.WordCell"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="25" Height="25">
+    <Grid>
+        <Rectangle Stroke="{DynamicResource ButtonBorderPressed}" 
+                   Fill="{DynamicResource ButtonBackground}"/>
+        <TextBlock x:Name="idTB" Text="{Binding Path=ID, Mode=OneWay}" 
+                   Foreground="{DynamicResource ButtonBorderPressed}"
+                   Margin="1,-2,0,0"
+                   FontSize="13"
+                   Visibility="{Binding Path=IDIsVisible, Mode=OneWay, Converter={StaticResource BoolToVisibiltyConverter}}"/>
+        <TextBlock x:Name="symbolTB" Text="{Binding Path=Symbol, Mode=OneWay}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"                   
+                   FontSize="20"/>        
+    </Grid>
+</UserControl>

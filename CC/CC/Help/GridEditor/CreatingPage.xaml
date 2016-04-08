@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Help.GridEditor.CreatingPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Help/HelpStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource ContentRoot}" Margin="0,0,0,10">
+        <ScrollViewer>
+            <StackPanel MinWidth="200">
+                <TextBlock Text="СОСТАВЛЕНИЕ КРОССВОРДА" Style="{StaticResource Heading2}" />
+                <TextBlock>
+                    Кроссворды составляются из заранее подготовленных списков терминов. Расставление слов производится вручную - это очень просто!
+                    <LineBreak/><LineBreak/>
+                    Нажмите кнопку "Загрузить...", чтобы загрузить в редактор файл списка терминов. Слова (ответы) из файла будет отображены в списке "Слова". При наведении на слово во всплывающей подсказке отображается связанный с ним вопрос. Если требуются слова и из других списков, также загрузите их в редактор.
+                    <LineBreak/><LineBreak/>
+                    Для размещения слова на поле, перенесите его мышью из списка "Слова". При переносе слова, когда указатель мыши будет на поле, оно подсветится акцентным цветом - значит можно отпускать. Перемещенное слово окажется на поле.
+                    <LineBreak/><LineBreak/>
+                    Переместите слова в нужное место на поле. Чтобы изменить ориентацию слова, дважды щелкните по нему. Добавьте другие слова и разместите их на поле, составляя пересечения.
+                    <LineBreak/><LineBreak/>
+                    Теперь вы узнали, как составлять кроссворды!
+                    <LineBreak/><LineBreak/>
+                    Обратите внимание, что вам совсем не обязательно составлять кроссворды. Так как Crossword Creator позволяет свободно размещать слова на поле, то вы можете сделать, например, какой-либо "вопросник", разместив слова без пересечений. Проверка верности заполнения подразумевает проверку каждого ответа на совпадение с требуемым, поэтому составлять можно не только кроссворды.
+                    <LineBreak/><LineBreak/>
+                    Чтобы сохранить кроссворд, нажмите кнопку "Сохранить" или "Сохранить как...". Последняя выполняет сохранение в новый файл. Сохранение кроссворда выполняется в файлы с расширением "cwgf" (Crossword Creator Grid File). Эти файды имеют следующую иконку:
+                    <LineBreak/>
+                </TextBlock>
+                <Image Source="/Pictures/cwgf.png" Width="95" HorizontalAlignment="Center">
+                    <Image.Effect>
+                        <DropShadowEffect Color="{DynamicResource AccentColor}" Direction="0" ShadowDepth="0" BlurRadius="20"/>
+                    </Image.Effect>
+                </Image>
+                <TextBlock>
+                    <LineBreak/>
+                    Так как при установке Crossword Creator автоматически сопоставляется с данным типом файлов, то при их открытии приложение будет автоматически запускаться. Crossword Creator предложит вам заполнить кроссворд, а если вы хотите его зменить, то выберите "No".
+                    <LineBreak/>
+                </TextBlock>
+                <mui:BBCodeBlock BBCode="Перейдите в [b][url=/Pages/CrosswordEditor.xaml|_top]редактор сетки[/url][/b], чтобы составить кроссворд."/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

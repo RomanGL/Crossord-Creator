@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Content.About"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel MinWidth="200">
+                <TextBlock Text="О ПРОГРАММЕ" Style="{StaticResource Heading2}" />
+                <TextBlock Text="Crossword Creator" Margin="0,0,0,0" TextWrapping="Wrap" />
+                <TextBlock x:Name="versionTextBlock" TextWrapping="Wrap" Text="Версия: 0.0.0.0" VerticalAlignment="Top" Margin="0,0,0,10"/>
+                <mui:BBCodeBlock BBCode="[b]Разработка[/b]: [b]Роман Гладких[/b], Бачатский, Россия"/>
+                <mui:BBCodeBlock BBCode="[b]Логотип и иконки[/b]: [b]Андрей Цирк[/b], Николаев, Украина"/>
+                <mui:BBCodeBlock TextWrapping="Wrap" BBCode="[url=http://crosswordcreator.esy.es]www.crosswordcreator.esy.es[/url]" VerticalAlignment="Top" Margin="0,8,0,0" FontWeight="Bold"/>
+                <mui:BBCodeBlock BBCode="Имеются вопросы или вы хотите оставить пожелание или отзыв? Пишите на почту [url=mailto:roman.gladkikh@outlook.com?subject=Сообщение%20из%20Crossword%20Creator][b]roman.gladkikh@outlook.com[/b][/url]!" VerticalAlignment="Top" Margin="0,10,0,0" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

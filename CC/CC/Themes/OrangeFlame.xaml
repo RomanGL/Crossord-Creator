@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mui="http://firstfloorsoftware.com/ModernUI">
+
+    <!-- derive from Light or Dark theme-->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- specify the accent color (optional) -->
+    <Color x:Key="AccentColor">#fa6800</Color>
+
+    <!-- custom theme resources-->
+    <Grid x:Key="WindowBackgroundContent" x:Shared="false"> 
+        <Rectangle>
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Pictures/OrangeFlame.jpg" Opacity=".5" Stretch="UniformToFill" />
+            </Rectangle.Fill>
+        </Rectangle>
+    </Grid>
+    
+</ResourceDictionary>

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Help.GridEditor.BasicsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Help/HelpStyles.xaml"/>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource ContentRoot}" Margin="0,0,0,10">
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="РЕДАКТОР СЕТКИ" Style="{StaticResource Heading2}" />
+                <TextBlock>
+                    Это следующий этап на пути создания кроссворда. В этом разделе приложения создаются сами кроссворды.
+                    <LineBreak/><LineBreak/>
+                    Страница "Редактора сетки" делится на три части: после кроссворда, список слов и панель служебных кнопок. На поле "Кроссворд" будет располагаться составленный вами кроссворд. В списке "Слова" будут находиться все слова (ответы) из загруженных списков определений. Именно из этих слов составляется кроссворд.
+                    <LineBreak/><LineBreak/>
+                    На нижней панели имеется четыре кнопки: "Загрузить...", "Открыть сетку...", "Сохранить" и "Сохранить как...". 
+                    <LineBreak/><LineBreak/>
+                    Начнем с первой кнопки. Кнопка "Загрузить..." предназначена для загрузки в редактор списков терминов. Файлы списка терминов имеют расширение "cwtf" (Crossword Creator List File). Нажмите на эту кнопку и выберите список терминов. После этого действия слова из списка терминов появятся в соответствующем списке. Чтобы добавить слова из еще одного списока, снова нажмите кнопку "Загрузить...", затем выберите требуемый файл. Вы увидите окно с тремя кнопка, в котором будет предложено составить новый кроссворд из открытого списка. Если выберите "Yes", то будет загружен только этот список. Для добавления слов к уже имеющемуся списку выберите "No".
+                    <LineBreak/><LineBreak/>
+                    Если имеются несохраненные изменения в текущем кроссворде, то при открытии нового списка терминов, вам будет предложено их сохранить.
+                    <LineBreak/>
+                </TextBlock>
+                <mui:BBCodeBlock BBCode="Узнать подробнее про списки определений вы можете [url=/Help/ListEditor/MainPage.xaml|_parent][b]здесь[/b][/url]."/>
+                <TextBlock>
+                    <LineBreak/>
+                    Кнопка "Открыть сетку..." отображает окно открытия файлов сетки кроссворда, которые имеют расширение "cwgf" (Crossword Creator Grid File). При открытии файла, текущий кроссворд будет закрыт. Если имеются несохраненные изменения, вам будет предложено их сохранить.
+                    <LineBreak/><LineBreak/>
+                    Кнопки "Сохранить" и "Сохранить как..." предназначены для сохранения кроссворда. Последняя выполняет сохранение в новый файл, который вам требуется указать.
+                    <LineBreak/><LineBreak/>
+                    Чтобы узнать, как составлять и изменить кроссворды, ознакомьтесь с вкладкой "Составление" этого раздела справки.
+                    <LineBreak/>
+                </TextBlock>
+                <mui:BBCodeBlock BBCode="Перейдите в [b][url=/Pages/CrosswordEditor.xaml|_top]редактор сетки[/url][/b], чтобы составить кроссворд."/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

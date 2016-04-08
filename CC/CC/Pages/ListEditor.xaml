@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Pages.ListEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:commands="clr-namespace:Crossword_Application_Modern.Commands"
+             mc:Ignorable="d" 
+             d:DesignHeight="388" d:DesignWidth="536">
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New"
+                        Executed="New_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Open"
+                        Executed="Open_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Save"
+                        Executed="Save_Executed"
+                        CanExecute="Save_CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.SaveAs"
+                        Executed="SaveAs_Executed"
+                        CanExecute="Save_CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Delete"
+                        Executed="Delete_Executed"
+                        CanExecute="Delete_CanExecute"/>
+        <CommandBinding Command="{x:Static commands:CustomCommands.AddNewItem}"
+                        Executed="AddNewItem_Executed"/>
+    </UserControl.CommandBindings>
+
+    <UserControl.Resources>
+        <!-- Стиль отображения идентификатора -->
+        <Style x:Key="IDTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <!-- Анимация добавления элемента -->
+        <Storyboard x:Key="NewElement">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="3"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="3"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0,-40,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.4" Value="0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <!-- Стиль для отображения анимации нового элемента -->
+        <Style x:Key="AnimatingElement" TargetType="Grid">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource NewElement}" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Шаблон структуры данных элемента списка -->
+        <DataTemplate x:Key="listBoxItemTemplate">
+            <Grid Style="{StaticResource AnimatingElement}" x:Name="itemGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Path=ID, Mode=OneWay}" Style="{StaticResource IDTextBlockStyle}"/>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock Text="{Binding Path=Question, Mode=TwoWay}" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Path=Answer, Mode=TwoWay}" FontWeight="Normal"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource ContentRoot}" Margin="10,10,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Грустный смайлик и текст -->
+        <Grid x:Name="grid" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+              Visibility="{Binding Path=HasItems, ElementName=contentListBox, Converter={StaticResource BoolToVisibilityInvertConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <Canvas Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="64">
+                    <Path Data="{StaticResource CrySmileIcon}" Fill="{DynamicResource ButtonText}" Opacity="0.7" StrokeThickness="0" Height="64" Stretch="Fill" Width="80" />
+                </Canvas>
+                <TextBlock Foreground="{DynamicResource ButtonText}" Opacity="0.7" FontSize="27" VerticalAlignment="Center" Margin="10,0,0,0">
+                    Здесь очень одиноко...
+                    <LineBreak/>
+                    Добавьте сюда что-нибудь.
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <!-- Заголовок редактора -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="КОЛЛЕКЦИЯ ТЕРМИНОВ - " 
+                   Style="{StaticResource Heading2}" Margin="0,0,0,10" />
+            <TextBlock Grid.Column="1" Text="{Binding Path=FileName, Mode=OneWay}" 
+                   Style="{StaticResource Heading2}" Margin="0,0,0,10"/>
+        </Grid>
+
+        <!-- Список терминов -->
+        <ListBox x:Name="contentListBox" Grid.Row="1" ItemsSource="{Binding Path=Items}"
+                 ItemTemplate="{StaticResource listBoxItemTemplate}"
+                 IsSynchronizedWithCurrentItem="True"/>
+
+        <Separator Grid.Row="2" Height="8"/>
+
+        <!-- Панель добавления и редактрирования элемента -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="54"/>
+            </Grid.ColumnDefinitions>
+            <ContentControl Grid.Column="0" Content="{Binding Path=Items}" Grid.ColumnSpan="2">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Вопрос:" VerticalAlignment="Center" Margin="0,0,0,5"/>
+                            <TextBox x:Name="questionTextBox" Grid.Row="0" Grid.Column="1" Margin="5,0,0,5" TextChanged="TextBox_TextChanged"
+                                 Text="{Binding Path=Question, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Ответ:" VerticalAlignment="Center" Margin="0,0,0,5"/>
+                            <TextBox x:Name="answerTextBox" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" TextChanged="TextBox_TextChanged"
+                                 Text="{Binding Path=Answer, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            
+                            <Button Content="+" FontSize="15" Padding="0" Margin="5,0,0,0"
+                                 Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Width="49"
+                                    Command="{x:Static commands:CustomCommands.AddNewItem}" IsDefault="True">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource MultiValConverter}">
+                                        <Binding Path="Text" ElementName="questionTextBox"/>
+                                        <Binding Path="Text" ElementName="answerTextBox"/>
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </Grid>
+
+        <Separator Grid.Row="4" Height="8"/>
+
+        <!-- Панель базовых кнопок -->
+        <WrapPanel Grid.Row="5" Height="Auto" VerticalAlignment="Bottom">
+            <!-- Кнопка Создать -->
+            <mui:ModernButton x:Name="newButton" Command="{x:Static ApplicationCommands.New}" 
+                              Content="Создать" ToolTip="Создать новый список терминов (Ctrl+N)"
+                              IconData="{StaticResource NewIcon}" Style="{StaticResource MediumButtonSize}"/>
+            <!-- Кнопка Открыть -->
+            <mui:ModernButton x:Name="openButton" Command="{x:Static ApplicationCommands.Open}" 
+                              Content="Открыть..." ToolTip="Открыть файл списка терминов (Ctrl+O)" 
+                              IconData="{StaticResource OpenIcon}" Style="{StaticResource MediumButtonSize}" 
+                              HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,10,0"/>
+            <!-- Кнопка Сохранить -->
+            <mui:ModernButton x:Name="saveButton" Command="ApplicationCommands.Save" 
+                              Content="Сохранить" ToolTip="Сохранить (Ctrl+S)" 
+                              IconData="{StaticResource SaveIcon}" Style="{StaticResource MediumButtonSize}"/>
+            <!-- Кнопка Сохранить как -->
+            <mui:ModernButton x:Name="saveAsButton" Command="{x:Static ApplicationCommands.SaveAs}" 
+                              Content="Сохранить как..." ToolTip="Сохранить в новый файл" 
+                              IconData="{StaticResource SaveAsIcon}" Style="{StaticResource MediumButtonSize}"/>
+        </WrapPanel>
+    </Grid>
+</UserControl>

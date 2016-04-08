@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Help.Navigation.MainPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Help/HelpStyles.xaml"/>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource ContentRoot}" Margin="0,0,0,10">
+        <ScrollViewer>
+            <StackPanel MinWidth="200">
+                <TextBlock Text="НАВИГАЦИЯ" Style="{StaticResource Heading2}" />
+                <TextBlock>
+                    Навигация в приложении Crossword Creator устроена очень просто. Она напоминает навигаю в веб-браузере.
+                    <LineBreak/>
+                </TextBlock>
+                <mui:BBCodeBlock BBCode="Возможно вы уже заметили в левом верхнем углу окна кнопку [b]Назад[/b]. Она имеет форму стрелочки. Нажатие на данную кнопку всегда возвращает вас на одну просмотренную страницу назад. То есть, если вы сейчас нажмете эту кнопку, то вы вернетесь в последний просмотренный раздел."/>
+                <TextBlock/>
+                <mui:BBCodeBlock BBCode="Приложение делится на [b]несколько разделов[/b], с которыми вы уже возможно ознакомились. В данный момент вы находитесь в разделе [b]Справка[/b]. Далее перечисленны основные разделы приложения:"/>
+                <TextBlock/>
+                <mui:BBCodeBlock BBCode="• [url=/Pages/Home.xaml|_top][b]Страница приветствия[/b][/url]" />
+                <mui:BBCodeBlock BBCode="• [url=/Pages/ListEditor.xaml|_top][b]Редактор списков[/b][/url]" />
+                <mui:BBCodeBlock BBCode="• [url=/Pages/CrosswordEditor.xaml|_top][b]Редактор сетки[/b][/url]" />
+                <mui:BBCodeBlock BBCode="• [url=/Pages/CrosswordViewer.xaml|_top][b]Заполнение кроссворда[/b][/url]" />
+                <mui:BBCodeBlock BBCode="• [url=/Pages/Settings.xaml|_top][b]Настройки[/b][/url]" />
+                <mui:BBCodeBlock BBCode="• [url=/Help/MainHelpPage.xaml|_top][b]Справка (вы сейчас здесь)[/b][/url]" />
+                <TextBlock/>
+                <mui:BBCodeBlock BBCode="Нажав на ссылку, вы сразу же окажетесь в нужном разделе. Нажав на кнопку [b]Назад[/b], вы вернетесь обратно."/>                                                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

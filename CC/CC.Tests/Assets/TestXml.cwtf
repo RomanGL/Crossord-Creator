@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<head>
+  <word>
+    <ID>1</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>2</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>3</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>4</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>5</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>6</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>7</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>8</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>9</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+  <word>
+    <ID>10</ID>
+    <answer>ответ</answer>
+    <question>Это вопрос?</question>
+  </word>
+</head>

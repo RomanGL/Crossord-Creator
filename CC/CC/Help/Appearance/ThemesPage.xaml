@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Help.Appearance.ThemesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Help/HelpStyles.xaml"/>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource ContentRoot}" Margin="0,0,0,10">
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="ТЕМЫ ОФОРМЛЕНИЯ" Style="{StaticResource Heading2}" />
+                <TextBlock>
+                    Темы формления дают еще больше возможностей для настройки внешнего вида приложения по своему вкусу.
+                    <LineBreak/>
+                    <LineBreak/>
+                    Только подумайте, много ли приложений, которые позволяют менять свой фон и цвета элементов? Ответ однозначен - нет.
+                    <LineBreak/>
+                    <LineBreak/>
+                    А Crossword Creator позволяет! Темы оформления содержат в себе определенный фоновый рисунок и акцентный цвет. Последнее вы можете свободно сменить. Все доступные темы оформления основаны на базе темной и светлой. Темные темы отличаются светлым текстом и темным фоном, светлые темы наоборот. Crossword Cretor в комплекте уже имеет несколько тем оформления, они должны вам понравиться!
+                    <LineBreak/>
+                </TextBlock>
+                <mui:BBCodeBlock BBCode="Вы также можете использовать и свой фон в приложении, например, свою любимую фотографию или рисунок. Узнать, как это сделать, вы можете [b][url=/Help/Appearance/CustomBackgroundPage.xaml|_self]здесь[/url][/b]"/>
+                <TextBlock/>
+                <mui:BBCodeBlock BBCode="Перейдите в [b][url=/Pages/Settings.xaml|_top]настройки[/url][/b], чтобы сменить тему оформления."/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

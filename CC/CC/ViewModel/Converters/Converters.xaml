@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:Crossword_Application_Modern.ViewModel.Converters">
+
+    <converters:BooleanToVisibiltyConverter x:Key="BoolToVisibiltyConverter"/>
+    <converters:BooleanToVisibiltyInvertConverter x:Key="BoolToVisibilityInvertConverter"/>
+    <converters:MultiConverter x:Key="MultiValConverter"/>
+    
+</ResourceDictionary>

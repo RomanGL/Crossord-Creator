@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Content.CheckUpdates"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="341" d:DesignWidth="371">
+    <Grid Style="{StaticResource ContentRoot}" Margin="0">
+        <ScrollViewer>
+            <StackPanel MinWidth="200">
+                <TextBlock Text="ПРОВЕРКА ОБНОВЛЕНИЙ" Style="{StaticResource Heading2}" />
+                <TextBlock TextWrapping="Wrap">
+                    При каждом запуске Crossword Creator автоматически подключается к серверу и проверяет наличие новой версии. Не волнуйтесь, проверка обновлений занимает всего лишь порядка 1 КБ трафика.
+                    <LineBreak/><LineBreak/>
+                    Мы не рекомендуем отключать проверку обновлений, так как вы можете не узнать о выходе новой версии, однако если вы все же желаете это сделать, отключить можно здесь:
+                    <LineBreak/>
+                </TextBlock>
+                <CheckBox x:Name="autoUpdateIsEnabled" Content="Автоматическая проверка обновлений" Checked="autoUpdateIsEnabled_Checked" Unchecked="autoUpdateIsEnabled_Unchecked"/>
+                <TextBlock TextWrapping="Wrap">
+                    <LineBreak/>
+                    Вы также можете проверить наличие обновлений вручную, нажав эту кнопку:
+                    <LineBreak/>
+                </TextBlock>
+                <TextBlock x:Name="CheckingWorking" Foreground="{DynamicResource ButtonBorderPressed}" FontWeight="Bold">
+                    Выполняется проверка обновлений...
+                    <LineBreak/>
+                </TextBlock>
+                <Button x:Name="CheckUpdatesButton" Content="Проверить наличие обновлений" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CheckUpdatesButton_Click"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

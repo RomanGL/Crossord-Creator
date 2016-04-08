@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Help.Appearance.MainPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Style="{StaticResource ContentRoot}" Margin="0,0,0,10">
+        <!-- TODO: set @SelectedSource -->
+        <mui:ModernTab Layout="Tab" SelectedSource="/Help/Appearance/BasicsPage.xaml">
+            <mui:ModernTab.Links>
+                <!-- TODO: set @Source -->
+                <mui:Link DisplayName="Общее" Source="/Help/Appearance/BasicsPage.xaml"/>
+                <mui:Link DisplayName="Акцентный цвет" Source="/Help/Appearance/AccentColorPage.xaml"/>
+                <mui:Link DisplayName="Тема" Source="/Help/Appearance/ThemesPage.xaml"/>
+                <mui:Link DisplayName="Свой фон" Source="/Help/Appearance/CustomBackgroundPage.xaml"/>
+            </mui:ModernTab.Links>
+        </mui:ModernTab>
+    </Grid>
+</UserControl>

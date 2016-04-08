@@ -1,0 +1,131 @@
+﻿<UserControl xmlns:UserTemplates="clr-namespace:Crossword_Application_Modern.UserTemplates"  x:Class="Crossword_Application_Modern.Pages.GridEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:commands="clr-namespace:Crossword_Application_Modern.Commands"
+             mc:Ignorable="d" 
+             x:Name="userControl"
+             d:DesignHeight="453" d:DesignWidth="520">
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New"
+                        Executed="New_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Open"
+                        Executed="Open_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Save"
+                        Executed="Save_Executed"
+                        CanExecute="Save_CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.SaveAs"
+                        Executed="SaveAs_Executed"
+                        CanExecute="Save_CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Delete"
+                        Executed="Delete_Executed"
+                        CanExecute="Delete_CanExecute"/>
+        <CommandBinding Command="{x:Static commands:CustomCommands.AddNewItem}"
+                        Executed="AddNewItem_Executed"/>
+    </UserControl.CommandBindings>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ListWordsDataTemplate">
+                <TextBlock Text="{Binding Path=Answer}" 
+                           ToolTip="{Binding Path=Question}"/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="mainGrid" Style="{StaticResource ContentRoot}" Margin="10,10,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Раздел кроссворда -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Поле кроссворда -->
+                <Canvas x:Name="contentCanvas" Grid.Row="1" ClipToBounds="True">
+                    <UserTemplates:WordCell Canvas.Left="10" Canvas.Top="10" Symbol="f" ID="1" IDIsVisible="True"/>
+                    <UserTemplates:WordCell Canvas.Left="35" Canvas.Top="10" Symbol="o" ID="2" IDIsVisible="False"/>
+                    <UserTemplates:WordCell Canvas.Left="60" Canvas.Top="10" Symbol="x" ID="3" IDIsVisible="False"/>
+                </Canvas>
+
+                <!-- Грустный смайлик и текст -->
+                <Grid x:Name="grid" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Visibility="{Binding Path=HasItems, Converter={StaticResource BoolToVisibilityInvertConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Canvas Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="64" Height="64">
+                            <Path Data="{StaticResource ToungleSmileIcon}" Fill="{DynamicResource ButtonText}" Opacity="0.7" StrokeThickness="0" Height="64" Stretch="Fill" Width="64" />
+                        </Canvas>
+                        <TextBlock Foreground="{DynamicResource ButtonText}" Opacity="0.7" FontSize="27" VerticalAlignment="Center" Margin="10,0,0,0" TextWrapping="Wrap"><Run Text="Здесь пусто..."/><LineBreak/><Run Text="Может созданим кросворд?"/></TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="КРОССВОРД - "
+                           Style="{StaticResource Heading2}" Margin="0,0,0,5"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Path=FileName, Mode=OneWay}" 
+                           Style="{StaticResource Heading2}"/>
+                </Grid>
+            </Grid>
+            <GridSplitter Grid.Column="1"/>
+            <!-- Раздел списка слов -->
+            <Grid Grid.Column="2" Margin="5,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="СЛОВА"
+                           Style="{StaticResource Heading2}" Margin="0,0,0,5"/>
+                <ListBox Grid.Row="1" ItemsSource="{Binding Path=WordList}"
+                         ItemTemplate="{StaticResource ListWordsDataTemplate}"/>
+            </Grid>
+        </Grid>
+
+        <Separator Grid.Row="2" Height="13" VerticalAlignment="Bottom"/>
+        <WrapPanel Grid.Row="3" Height="Auto" VerticalAlignment="Bottom">
+            <!-- Кнопка Создать -->
+            <mui:ModernButton x:Name="newButton" Command="{x:Static ApplicationCommands.New}" 
+                              Content="Создать" ToolTip="Создать новый кроссворд (Ctrl+N)"
+                              IconData="{StaticResource NewIcon}" Style="{StaticResource MediumButtonSize}"/>
+            <!-- Кнопка Открыть -->
+            <mui:ModernButton x:Name="openButton" Command="{x:Static ApplicationCommands.Open}" 
+                              Content="Открыть..." ToolTip="Открыть файл кроссворда (Ctrl+O)" 
+                              IconData="{StaticResource OpenIcon}" Style="{StaticResource MediumButtonSize}" 
+                              HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,10,0"/>
+            <!-- Кнопка Сохранить -->
+            <mui:ModernButton x:Name="saveButton" Command="{x:Static ApplicationCommands.Save}" 
+                              Content="Сохранить" ToolTip="Сохранить (Ctrl+S)" 
+                              IconData="{StaticResource SaveIcon}" Style="{StaticResource MediumButtonSize}"/>
+            <!-- Кнопка Сохранить как -->
+            <mui:ModernButton x:Name="saveAsButton" Command="{x:Static ApplicationCommands.SaveAs}" 
+                              Content="Сохранить как..." ToolTip="Сохранить как новый файл" 
+                              IconData="{StaticResource SaveAsIcon}" Style="{StaticResource MediumButtonSize}"/>
+            <!-- Кнопка Добавить список -->
+            <mui:ModernButton x:Name="addListButton" Command="{x:Static commands:CustomCommands.AddNewItem}" 
+                              Content="Добавить список..." ToolTip="Добавить список терминов"
+                              IconData="{StaticResource AddListIcon}" Style="{StaticResource MediumButtonSize}"/>
+        </WrapPanel>
+        <Canvas HorizontalAlignment="Left" Height="100" Margin="322,101,0,-133" Grid.Row="3" VerticalAlignment="Top" Width="100"/>
+    </Grid>
+</UserControl>

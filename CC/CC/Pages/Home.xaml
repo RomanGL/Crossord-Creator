@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="Crossword_Application_Modern.Pages.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="442" d:DesignWidth="582.3">
+    <UserControl.Resources>
+        <Storyboard x:Key="InitAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="textBlock">
+                <EasingThicknessKeyFrame KeyTime="0" Value="120,-100,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.2" Value="120,-100,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="3"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.8" Value="10,-100,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="3"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.6" Value="10,-100,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="scrollViewer">
+                <EasingThicknessKeyFrame KeyTime="0" Value="120,0,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.6" Value="120,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="3"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.3" Value="0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="3"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="scrollViewer">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource ContentRoot}" Margin="10">
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="48.525" Margin="10,-100,0,0" 
+                   TextWrapping="Wrap" VerticalAlignment="Center" Width="492.97" 
+                   Style="{StaticResource Heading1}" 
+                   Foreground="{DynamicResource ItemBackgroundSelected}" Opacity="0">
+            <Run Language="ru-ru" Text="Добро пожаловать!"/>
+        </TextBlock>
+        <ScrollViewer x:Name="scrollViewer">
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading1}"  TextWrapping="Wrap" Text="CROSSWORD CREATOR" VerticalAlignment="Top"/>
+                <TextBlock Text="Это уникальное средство, с помощью которого вы сможете создать и заполнить великоленые кроссворды!" Margin="0,40,0,0" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource Heading2}" Text="Всего три простых этапа" VerticalAlignment="Top" Margin="0,77,0,0"/>
+                <mui:BBCodeBlock BBCode="1) Перейдите в [url=/Pages/ListEditor.xaml|_top][b]редактор списков[/b][/url] и составьте список терминов" Margin="0,110,0,0" VerticalAlignment="Top" />
+                <mui:BBCodeBlock BBCode="2) Перейдите в [url=/Pages/CrosswordEditor.xaml|_top][b]редактор сетки[/b][/url] и создайте из списка кроссворд" Margin="0,126,0,0" VerticalAlignment="Top" />
+                <mui:BBCodeBlock BBCode="3) Приступите к [url=/Pages/CrosswordViewer.xaml|_top][b]заполнению[/b][/url] кроссворда" Margin="0,142,0,0" VerticalAlignment="Top" />
+                <mui:BBCodeBlock BBCode="Не забывайте, что вы всегда можете обратиться к [url=/Help/MainHelpPage.xaml|_top][b]справке[/b][/url]." Margin="0,184,0,0" VerticalAlignment="Top" />
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
