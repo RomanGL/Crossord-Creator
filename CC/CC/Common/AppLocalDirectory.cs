@@ -15,7 +15,7 @@ namespace Crossword_Application_Modern
         /// Путь до папки приложения в AppData.
         /// </summary>
         private static string applicationLocalDirectory = 
-            String.Format("{0}/Crossword Application Modern/", 
+            String.Format("{0}\\CCApp\\", 
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
 
         /// <summary>

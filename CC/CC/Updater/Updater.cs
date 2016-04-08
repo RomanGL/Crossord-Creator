@@ -1,4 +1,6 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +15,8 @@ namespace Crossword_Application_Modern
     /// </summary>
     static class Updater
     {
+        private const string FrameworkNameMask = "Microsoft .Net Framework {0} или новее";
+        private static int frameworkVersion = 0;
         public delegate void Updates();
 
         /// <summary>
@@ -44,7 +48,7 @@ namespace Crossword_Application_Modern
         /// <summary>
         /// Происходит при наличии обновления.
         /// </summary>
-        public static event Updates UpdateIsAvaible;
+        public static event Updates UpdateIsAvailable;
 
         /// <summary>
         /// Происходит, когда окна с результатом проверки обновлений закрыто.
@@ -101,8 +105,88 @@ namespace Crossword_Application_Modern
         /// </summary>
         private static void Check()
         {
+            frameworkVersion = GetFrameworkVersion();
+            if (frameworkVersion == 0)
+                UpdateOldVersion();
+            else
+                UpdateNewVersion(frameworkVersion);
+        }
+
+        private static void UpdateNewVersion(int frameworkVersion)
+        {
+            var client = new WebClient();
+            client.DownloadStringCompleted += Client_DownloadStringCompleted;
+            client.DownloadStringAsync(new Uri(UpdateInfo2.UpdateInfoUrl));
+        }
+
+        private static void Client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                if (visible)
+                    Messages.CheckUpdatesFailure(e.Error.Message);
+
+                if (CheckUpdatesFail != null)
+                    CheckUpdatesFail();
+
+                return;
+            }
+                        
+            try
+            {
+                var currentVersion = GetCurrentVersion;
+                var updateInfo = JsonConvert.DeserializeObject<UpdateInfo2>(e.Result);
+                newVersion = Version.Parse(updateInfo.NewVersion);                
+                whatsNew = updateInfo.Changes;
+                updatePath = updateInfo.Source;
+
+                if (newVersion > currentVersion)
+                {
+                    if (frameworkVersion < updateInfo.FrameworkVersion)
+                    {
+                        Messages.ShowMessage(String.Format("Стала доступна новая версия Crossword Creator, однако ее нельзя установить.\nДля установки требуется:\n{0}.",
+                            GetFrameworkVersionName(updateInfo.FrameworkVersion)), 
+                            "Невозможно установить обновление");
+                    }
+                    else
+                    {
+                        if (UpdateIsAvailable != null)
+                            UpdateIsAvailable();
+
+                        if (Messages.NewVersionAvaible() == System.Windows.MessageBoxResult.Yes)
+                        {
+                            UpdateWindow updateWindow = new UpdateWindow();
+                            updateWindow.Show();
+                        }
+
+                        if (UpdateMessageClosed != null)
+                            UpdateMessageClosed();
+                    }
+                }
+                else if (visible)
+                {
+                    Messages.NoUpdatesAvailable();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (visible)
+                    Messages.CheckUpdatesFailure(ex.Message);
+
+                if (CheckUpdatesFail != null)
+                    CheckUpdatesFail();
+
+                return;
+            }
+
+            if (CheckUpdatesFinished != null)
+                CheckUpdatesFinished();
+        }
+
+        private static void UpdateOldVersion()
+        {
             WebClient client = new WebClient();
-            client.OpenReadCompleted += client_OpenReadCompleted;
+            client.OpenReadCompleted += oldClient_OpenReadCompleted;
             client.OpenReadAsync(new Uri("http://crosswordcreator.esy.es/app/update.txt"));
         }
 
@@ -111,7 +195,7 @@ namespace Crossword_Application_Modern
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        static void client_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
+        static void oldClient_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
         {
             Stream stream = null;
             try
@@ -119,7 +203,7 @@ namespace Crossword_Application_Modern
                 stream = e.Result;
             }
             catch (Exception ex)
-            {                
+            {
                 if (visible == true)
                 {
                     Messages.CheckUpdatesFailure(ex.InnerException.Message);
@@ -145,40 +229,71 @@ namespace Crossword_Application_Modern
 
                     stream.Close();
 
-                    
+
                     if ((currentVersion < newVersion) && !String.IsNullOrWhiteSpace(updatePath))
                     {
-                        if (UpdateIsAvaible != null)
-                        { UpdateIsAvaible(); }
+                        if (UpdateIsAvailable != null)
+                        { UpdateIsAvailable(); }
                         if (Messages.NewVersionAvaible() == System.Windows.MessageBoxResult.Yes)
                         {
                             UpdateWindow updateWindow = new UpdateWindow();
                             updateWindow.Show();
-                            //new ModernDialog
-                            //{
-                            //    Title = "Доступно обновление",
-                            //    Content = new Content.UpdatesPage(),
-                            //    MinWidth = 640,
-                            //    MinHeight = 440
-                            //}.Show();
                         }
                         if (UpdateMessageClosed != null)
                         { UpdateMessageClosed(); }
                     }
                     else
-                    { 
+                    {
                         if (visible == true)
-                        { Messages.NoUpdatesAvaible(); }
+                        { Messages.NoUpdatesAvailable(); }
                     }
                 }
                 else
-                {                     
-                    stream.Close();                                       
+                {
+                    stream.Close();
                 }
             }
 
             if (CheckUpdatesFinished != null)
             { CheckUpdatesFinished(); }
+        }
+
+        private static int GetFrameworkVersion()
+        {
+            using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
+                .OpenSubKey("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full\\"))
+            {
+                var version = ndpKey.GetValue("Release");
+                if (version == null)
+                {
+                    return 0; // Windows XP, Net 4.0.
+                }
+                else
+                {
+                    return Convert.ToInt32(version);
+                }
+            }
+        }
+
+        private static string GetFrameworkVersionName(int version)
+        {
+            if (version >= 393295)
+            {
+                return String.Format(FrameworkNameMask, "4.6");
+            }
+            if (version >= 379893)
+            {
+                return String.Format(FrameworkNameMask, "4.5.2");
+            }
+            if (version >= 378675)
+            {
+                return String.Format(FrameworkNameMask, "4.5.1");
+            }
+            if (version >= 378389)
+            {
+                return String.Format(FrameworkNameMask, "4.5");
+            }
+            return String.Format(FrameworkNameMask, "4 Full");
         }
 
         /// <summary>

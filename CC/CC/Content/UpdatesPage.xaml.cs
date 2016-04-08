@@ -40,18 +40,27 @@ namespace Crossword_Application_Modern.Content
             currentVersionTextBlock.Text = String.Format("Текущая версия {0}",
                 Updater.GetCurrentVersion.ToString());
             whatsNewListBox.ItemsSource = whatsNewList;
+
+            client.DownloadProgressChanged += client_DownloadProgressChanged;
+            client.DownloadFileCompleted += client_DownloadFileCompleted;
         }
 
         private void downloadButton_Click(object sender, RoutedEventArgs e)
-        {            
-            client.DownloadProgressChanged += client_DownloadProgressChanged;
-            client.DownloadFileCompleted += client_DownloadFileCompleted;
-            client.DownloadFileAsync(new Uri(Updater.GetUpdatePath), updatePath);
-            percentageTextBlock.Visibility = System.Windows.Visibility.Visible;
-            downloadButton.IsEnabled = false;
+        {
+            try
+            {
+                AppLocalDirectory.CreateApplicationDirectory();
+                client.DownloadFileAsync(new Uri(Updater.GetUpdatePath), updatePath.Replace('/', '\\'));
+                percentageTextBlock.Visibility = System.Windows.Visibility.Visible;
+                downloadButton.IsEnabled = false;
 
-            if (DownloadUpdateStarted != null)
-            { DownloadUpdateStarted(); }
+                if (DownloadUpdateStarted != null)
+                { DownloadUpdateStarted(); }
+            }
+            catch (Exception ex)
+            {
+                Messages.DownloadUpdateCompleteFailure(ex.Message);
+            }
         }
 
         private void client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -64,8 +73,16 @@ namespace Crossword_Application_Modern.Content
             if (e.Error == null)
             {
                 Messages.DownloadUpdateCompleteSuccessfully();
-                Process.Start(updatePath);
-                App.Current.Shutdown();
+                try
+                {
+                    Process.Start(updatePath);
+                    App.Current.Shutdown();
+                }
+                catch (Exception ex)
+                {
+                    Messages.ShowMessage("Не удалось запустить программу установки. Повторите попытку позже.",
+                        "Не удалось выполнить обновление");
+                }
             }
             else
             {

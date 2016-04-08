@@ -162,7 +162,7 @@ namespace Crossword_Application_Modern
         public static void CheckUpdatesFailure(string ex)
         {
             string caption = "Не удалось выполнить проверку обновлений";
-            string message = String.Format("{0}\n\n{2}",
+            string message = String.Format("{0}\n\n{1}",
                 "При проверке обновлений произошла ошибка. Проверьте подключение к интернету и повторите попытку.",
                 ex);
 
@@ -175,7 +175,7 @@ namespace Crossword_Application_Modern
         /// <summary>
         /// Отображает окно, сообщающее об отсутствии обновлений.
         /// </summary>
-        public static void NoUpdatesAvaible()
+        public static void NoUpdatesAvailable()
         {
             string caption = "Обновления отсутствуют";
             string message = "На данный момент вы имеете самую свежую версию Crossword Creator.";

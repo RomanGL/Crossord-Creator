@@ -43,9 +43,9 @@ namespace Crossword_Application_Modern
             this.WindowState = Common.MainWindowSettings.State;
             this.Height = Common.MainWindowSettings.Height;
             this.Width = Common.MainWindowSettings.Width;
-            
+
             if (Settings.ThemeRestored == true)
-            { Messages.UserBackgroundFileNotFound(); }            
+            { Messages.UserBackgroundFileNotFound(); }
             Updater.CheckUpdates(false);  
         }
 

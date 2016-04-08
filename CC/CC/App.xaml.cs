@@ -20,18 +20,29 @@ namespace Crossword_Application_Modern
     /// </summary>
     public partial class App : Application
     {       
+        public App()
+        {
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            Settings.Load();
-            CustomSplashScreen splashScreen = new CustomSplashScreen();
-            splashScreen.Show();
 
-
+            CustomSplashScreen splashScreen = null;
             var startupTask = new Task(() =>
             {
-                // Подгрузка чего-нибудь не в UI-потоке.
-                Thread.Sleep(1200);
+                Settings.Load();
+                try
+                {
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        splashScreen = new CustomSplashScreen();
+                        splashScreen.Show();
+                    }));
+                }
+                catch (Exception)
+                {
+                }               
             });
 
             // В завершение показываем окно.
@@ -42,8 +53,12 @@ namespace Crossword_Application_Modern
                     MainWindow mainWindow = new MainWindow();
                     this.MainWindow = mainWindow;
                     InitConfigurationWindow initWindow = new InitConfigurationWindow();
-                    
-                    initWindow.Loaded += (sender, args) => splashScreen.Close();
+
+                    initWindow.Loaded += (s, args) =>
+                    {
+                        if (splashScreen != null)
+                            splashScreen.Close();
+                    };
                     initWindow.ShowDialog();
                     Crossword_Application_Modern.Properties.Settings.Default.IsFirstStart = false;
                      
@@ -52,15 +67,17 @@ namespace Crossword_Application_Modern
                 else
                 { 
                     MainWindow mainWindow = new MainWindow();
-
-                    //when main windows is loaded close splash screen
-                    mainWindow.Loaded += (sender, args) => splashScreen.Close();
+                    mainWindow.Loaded += (s, args) =>
+                    {
+                        if (splashScreen != null)
+                            splashScreen.Close();
+                    };
 
                     //set application main window;
                     this.MainWindow = mainWindow;
 
                     //and finally show it
-                    mainWindow.Show();
+                    mainWindow.Show();                    
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
 
