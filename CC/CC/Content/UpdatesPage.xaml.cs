@@ -78,7 +78,7 @@ namespace Crossword_Application_Modern.Content
                     Process.Start(updatePath);
                     App.Current.Shutdown();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Messages.ShowMessage("Не удалось запустить программу установки. Повторите попытку позже.",
                         "Не удалось выполнить обновление");

@@ -10,7 +10,14 @@
         <TextBlock Text="Обновление для Crossword Creator" Style="{StaticResource Heading2}" Margin="0" VerticalAlignment="Top" />
         <TextBlock x:Name="newVersionTextBlock" Text="Новая версия 0.0.0.0" Margin="0,21,0,0" VerticalAlignment="Top" />
         <TextBlock x:Name="currentVersionTextBlock" Text="Текущая версия 0.0.0.0" Margin="0,37,0,0" VerticalAlignment="Top" />
-        <ListBox x:Name="whatsNewListBox" Margin="0,84,0,76"/>
+        <ListBox x:Name="whatsNewListBox"
+                 Margin="0,84,0,76">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <ProgressBar x:Name="downloadProgressBar" Height="26" Margin="0,0,0,45" VerticalAlignment="Bottom"/>
         <Button x:Name="downloadButton" Content="Загрузить" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="109" Height="26" Click="downloadButton_Click"/>
         <TextBlock x:Name="percentageTextBlock" Margin="0,0,0,50" TextWrapping="Wrap" Text="0%" VerticalAlignment="Bottom" FontWeight="Bold" TextAlignment="Center" Foreground="{DynamicResource WindowText}" Visibility="Hidden"/>

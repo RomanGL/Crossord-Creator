@@ -46,7 +46,7 @@ namespace Crossword_Application_Modern
 
             if (Settings.ThemeRestored == true)
             { Messages.UserBackgroundFileNotFound(); }
-            Updater.CheckUpdates(false);  
+            Updater.CheckUpdates(false);
         }
 
         /// <summary>

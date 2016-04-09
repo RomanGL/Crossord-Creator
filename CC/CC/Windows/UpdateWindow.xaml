@@ -4,8 +4,8 @@
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="modernWindow" mc:Ignorable="d" x:Class="Crossword_Application_Modern.UpdateWindow"
         Title="Crossword Creator" IsTitleVisible="True"
-        Width="640" Height="440"                  
-        ContentSource="/Content/UpdatesPage.xaml" MinWidth="640" MinHeight="440" d:DesignWidth="786" ResizeMode="CanMinimize" Loaded="ModernWindow_Loaded">
+        Width="640" Height="500"                  
+        ContentSource="/Content/UpdatesPage.xaml" MinWidth="640" MinHeight="500" d:DesignWidth="786" ResizeMode="CanMinimize" Loaded="ModernWindow_Loaded">
 
     <mui:ModernWindow.Resources>
         <Storyboard x:Key="BlurAnimation">

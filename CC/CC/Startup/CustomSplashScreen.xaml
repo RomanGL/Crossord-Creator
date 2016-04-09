@@ -130,9 +130,9 @@
         <TextBlock x:Name="betaText" HorizontalAlignment="Left" Height="52.215" Margin="0,180,0,0" TextWrapping="Wrap" Text="не для публикации (тестовая версия)" VerticalAlignment="Top" Width="500" FontSize="26.667" Foreground="White" TextAlignment="Center" FontWeight="Light" Visibility="Hidden"/>
     	<TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Height="21" Margin="10,0,0,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="215" Foreground="White" FontSize="15"><Run Language="ru-ru" Text="Загрузка..."/></TextBlock>
         <TextBlock x:Name="versionTB" HorizontalAlignment="Right" Height="21" Margin="0,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="215" Foreground="White" FontSize="15" TextAlignment="Right"><Run Language="ru-ru" Text="Версия 0.0.0.0"/></TextBlock>
-        <TextBlock x:Name="author" HorizontalAlignment="Left" Height="21" Margin="45,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Foreground="White" FontSize="15" Text="Roman Gladkikh, 2014"/>
+        <TextBlock x:Name="author" HorizontalAlignment="Left" Height="21" Margin="45,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Foreground="White" FontSize="15" Text="Roman Gladkikh, 2016"/>
         <ProgressBar IsIndeterminate="True" Foreground="White" VerticalAlignment="Top" Margin="0,180,0,0"/>
-        <Image x:Name="image" Margin="10,10,460,260" Source="/Crossword Application Modern;component/Pictures/logo.png" Stretch="Fill" Width="30" Height="30"/>
+        <Image x:Name="image" Margin="10,10,460,260" Source="/CCApp;component/Pictures/logo.png" Stretch="Fill" Width="30" Height="30"/>
     	<!--<Ellipse x:Name="ellipse1" Fill="White" HorizontalAlignment="Left" Height="5" Margin="-10,0,0,100" VerticalAlignment="Bottom" Width="5"/>
     	<Ellipse x:Name="ellipse2" Fill="White" HorizontalAlignment="Left" Height="5" Margin="-10,0,0,100" VerticalAlignment="Bottom" Width="5"/>
     	<Ellipse x:Name="ellipse3" Fill="White" HorizontalAlignment="Left" Height="5" Margin="-10,0,0,100" VerticalAlignment="Bottom" Width="5"/>

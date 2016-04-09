@@ -142,7 +142,9 @@
             <Grid x:Name="grid1" HorizontalAlignment="Left" Height="158" Margin="0,85,0,0" VerticalAlignment="Top" Width="640">
                 <TextBlock x:Name="textBlock" Margin="-61.113,0,258.887,0" TextWrapping="Wrap" Text="Crossword Creator" FontSize="53.333" Width="442.226" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource Hyperlink}"/>
                 <Rectangle x:Name="rectangle" Fill="{DynamicResource ButtonBackgroundPressed}" HorizontalAlignment="Center" Height="96" Margin="272,0" VerticalAlignment="Center" Width="96"/>
-                <Image x:Name="image" Margin="272,0" Source="/Crossword Application Modern;component/Pictures/logo.png" Stretch="Fill" Height="80" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Image x:Name="image" Margin="272,0"
+                       Source="/CCApp;component/Pictures/logo.png"
+                       Stretch="Fill" Height="80" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <ed:Callout x:Name="callout" AnchorPoint="0.891,1.511" CalloutStyle="Rectangle" Content="Нажмите эту кнопку" FontSize="14.667" HorizontalAlignment="Right" Height="30" Margin="0,0,45,20" VerticalAlignment="Bottom" Width="184" Foreground="{DynamicResource Hyperlink}" Fill="{DynamicResource WindowBackground}" Stroke="{DynamicResource ButtonBackgroundPressed}"/>
         </Grid>
