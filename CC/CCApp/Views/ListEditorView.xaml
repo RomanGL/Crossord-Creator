@@ -18,11 +18,11 @@
             <Setter Property="Margin"
                     Value="0,0,7,0" />
             <Setter Property="EllipseDiameter"
-                    Value="26" />
+                    Value="32" />
             <Setter Property="IconHeight"
-                    Value="14" />
+                    Value="16" />
             <Setter Property="IconWidth"
-                    Value="14" />
+                    Value="16" />
         </Style>
     </c:CCView.Resources>
 
@@ -31,10 +31,48 @@
             <RowDefinition Height="Auto" />
             <RowDefinition/>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <TextBlock Text="Безымянный список"
+                   Style="{StaticResource Heading2}" />
+        
+        <ListBox Grid.Row="1"/>
+
+        <Grid Grid.Row="2"
+              Margin="0,0,0,7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Вопрос:"
+                       VerticalAlignment="Center" />
+            <TextBlock Text="Ответ:" 
+                       Grid.Row="1"
+                       VerticalAlignment="Center"
+                       Margin="0,5,0,0" />
+
+            <TextBox Grid.Column="1"
+                     Margin="5,0,0,0"
+                     Height="24" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="5,5,0,0"
+                     Height="24"/>
+            <Button Grid.RowSpan="2"
+                    Grid.Column="2"
+                    Margin="5,0,0,0"
+                    Width="52"
+                    Content="+" />
+        </Grid>
+        
         <StackPanel Orientation="Horizontal"
-                    Margin="7,0"
                     Grid.Row="3">
             <mui:ModernButton IconData="{StaticResource NewFileIcon}"
                               Style="{StaticResource LeftButton}"
@@ -49,7 +87,5 @@
                               Style="{StaticResource LeftButton}"
                               ToolTip="Сохранить как..." />
         </StackPanel>
-
-        <TextBlock Grid.Column="1" Text="Безымянный список" Style="{StaticResource Heading2}"/>
     </Grid>
 </c:CCView>

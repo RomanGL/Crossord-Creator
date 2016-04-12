@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FirstFloor.ModernUI.Windows.Navigation;
 using CC.Core.Services.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace CC.Core.ViewModels
 {
@@ -14,6 +15,12 @@ namespace CC.Core.ViewModels
         {
             _navigationParametersResolver = navigationParametersResolver;
         }
+
+        [OptionalDependency("JsonListService")]
+        public IListService JsonListService { get; set; }
+
+        [OptionalDependency("XmlListService")]
+        public IListService XmlListService { get; set; }
 
         public override void OnNavigatedTo(NavigationEventArgs e)
         {

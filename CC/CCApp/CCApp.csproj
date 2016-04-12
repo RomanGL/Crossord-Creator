@@ -56,6 +56,10 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -187,10 +191,6 @@
     <ProjectReference Include="..\CC.Core.ViewModels\CC.Core.ViewModels.csproj">
       <Project>{3a1858e0-256b-4999-a2f7-88983d8316e5}</Project>
       <Name>CC.Core.ViewModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CC.Core\CC.Core.csproj">
-      <Project>{a069648d-d5af-4532-bcb6-07cdb17cb311}</Project>
-      <Name>CC.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
