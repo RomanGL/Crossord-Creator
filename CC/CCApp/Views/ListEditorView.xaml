@@ -26,7 +26,7 @@
         </Style>
     </c:CCView.Resources>
 
-    <Grid>
+    <Grid Margin="0,0,26,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition/>
@@ -40,7 +40,7 @@
         <ListBox Grid.Row="1"/>
 
         <Grid Grid.Row="2"
-              Margin="0,0,0,7">
+              Margin="0,0,0,14">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -82,10 +82,14 @@
                               ToolTip="Открыть..." />
             <mui:ModernButton IconData="{StaticResource SaveIcon}"
                               Style="{StaticResource LeftButton}"
-                              ToolTip="Сохранить" />
+                              ToolTip="Сохранить" 
+                              Command="{Binding SaveCommand}"
+                              CommandParameter="False"/>
             <mui:ModernButton IconData="{StaticResource SaveAsIcon}"
                               Style="{StaticResource LeftButton}"
-                              ToolTip="Сохранить как..." />
+                              ToolTip="Сохранить как..."
+                              Command="{Binding SaveCommand}"
+                              CommandParameter="True" />
         </StackPanel>
     </Grid>
 </c:CCView>
