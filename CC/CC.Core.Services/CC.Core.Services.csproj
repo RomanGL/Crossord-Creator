@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CCFileException.cs" />
+    <Compile Include="FileInfoService.cs" />
     <Compile Include="Interfaces\IFileInfoService.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Interfaces\IListService.cs" />

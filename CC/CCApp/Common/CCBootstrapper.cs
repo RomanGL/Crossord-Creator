@@ -35,15 +35,10 @@ namespace CCApp.Common
 
         protected override void ConfigureContainer()
         {
-            var jsonListService = new JsonListService();
-            var xmlListService = new XmlListService();
-
             Container.RegisterType<INavigationParametersResolver, NavigationParametersResolver>(new ContainerControlledLifetimeManager());
-
-            Container.RegisterInstance<IListService>("JsonListService", jsonListService, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance<IListService>("XmlListService", xmlListService, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance<IFileInfoService>("JsonListService", jsonListService, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance<IFileInfoService>("XmlListService", xmlListService, new ContainerControlledLifetimeManager());
+            Container.RegisterType<IListService, JsonListService>("JsonListService", new ContainerControlledLifetimeManager());
+            Container.RegisterType<IListService, XmlListService>("XmlListService", new ContainerControlledLifetimeManager());
+            Container.RegisterType<IFileInfoService, FileInfoService>(new ContainerControlledLifetimeManager());
 
             base.ConfigureContainer();
         }

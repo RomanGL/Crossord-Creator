@@ -13,31 +13,8 @@ namespace CC.Core.Services
     /// <summary>
     /// Представляет сервис для работы со списками терминов в формате JSON.
     /// </summary>
-    public sealed class JsonListService : IListService, IFileInfoService
+    public sealed class JsonListService : IListService
     {
-        /// <summary>
-        /// Возвращает версию файла Crossword Creator.
-        /// </summary>
-        /// <param name="file">Файл.</param>
-        /// <param name="service">Сервис для работы с файлами.</param>
-        /// <exception cref="CCFileException">Выбрасывается при невозможности прочитать или обработать файл.</exception>
-        public CCVersion GetFileInfo(IFile file, IFileService service)
-        {
-            try
-            {
-                using (var reader = new JsonTextReader(service.ReadText(file)))
-                {
-                    var obj = JToken.ReadFrom(reader);
-                    var version = obj["AppVersion"].ToObject<CCVersion>();
-                    return version;
-                }                 
-            }
-            catch (Exception ex)
-            {
-                throw new CCFileException(file, "Не удалось обработать файл.", ex);
-            }
-        }
-
         /// <summary>
         /// Возвращает список терминов из текстовой строки.
         /// </summary>
