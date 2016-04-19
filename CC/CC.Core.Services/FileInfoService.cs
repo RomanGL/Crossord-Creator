@@ -8,59 +8,76 @@ using CC.Core.Models;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using CC.Core.Models.IO;
+using System.IO;
 
 namespace CC.Core.Services
 {
     public sealed class FileInfoService : IFileInfoService
     {
-        public CCFileFormat GetFileFormat(IFile file, IFileService service)
+        public FileInfoService(IZipFileService zipFileService)
         {
-            throw new NotImplementedException();
+
         }
 
-        public CCVersion GetFileInfo(IFile file, IFileService service)
-        {
-            throw new NotImplementedException();
-        }
-
-        private CCVersion GetXmlVersion(IFile file, IFileService service)
+        public CCFileInfo GetFileInfo(IFile file)
         {
             try
             {
-                var document = XDocument.Load(service.ReadText(file));
-                XElement versionElement = document.Root.Element(XName.Get(APP_VERSION_ELEMENT_NAME));
+                var info = new CCFileInfo();
+                info.Name = file.Name;
+                info.Path = file.Path;
 
-                if (versionElement == null) return new CCVersion();
-                var version = new CCVersion();
+                var streamReader = new StreamReader(file.Path);
+                char fChar = (char)streamReader.Peek();
 
-                version.ApplicationName = versionElement.Element(XName.Get(APP_NAME_ELEMENT_NAME)).Value;
-                version.Major = uint.Parse(versionElement.Element(XName.Get(VERSION_MAJOR_ELEMENT_NAME)).Value);
-                version.Minor = uint.Parse(versionElement.Element(XName.Get(VERSION_MINOR_ELEMENT_NAME)).Value);
-                version.Build = uint.Parse(versionElement.Element(XName.Get(VERSION_BUILD_ELEMENT_NAME)).Value);
-                version.Revision = uint.Parse(versionElement.Element(XName.Get(VERSION_REVISION_ELEMENT_NAME)).Value);
-
-                return version;
-            }
-            catch (Exception ex)
-            {
-                throw new CCFileException(file, "Не удалось обработать файл.", ex);
-            }
-        }
-
-        private CCVersion GetJsonVersion(IFile file, IFileService service)
-        {
-            try
-            {
-                using (var reader = new JsonTextReader(service.ReadText(file)))
+                if (fChar == '<' && file.Name.EndsWith(".cwtf"))
                 {
-                    var obj = JToken.ReadFrom(reader);
-                    var version = obj["AppVersion"].ToObject<CCVersion>();
-                    return version;
+                    info.Type = CCFileType.cwtf;
+                    info.Version = new CCVersion("Crossword Creator 1.x");
+                    return info;
+                }
+                else if (fChar == '<' && file.Name.EndsWith(".cwgf"))
+                {
+                    info.Type = CCFileType.cwgf;
+                    info.Version = new CCVersion("Crossword Creator 1.x");
+                    return info;
+                }
+                else
+                {
+
                 }
             }
             catch (Exception ex)
             {
                 throw new CCFileException(file, "Не удалось обработать файл.", ex);
+            }
+        }
+
+        private CCVersion GetXmlVersion(StreamReader reader)
+        {
+            var document = XDocument.Load(reader);
+            XElement versionElement = document.Root.Element(XName.Get(APP_VERSION_ELEMENT_NAME));
+
+            if (versionElement == null) return new CCVersion();
+            var version = new CCVersion();
+
+            version.ApplicationName = versionElement.Element(XName.Get(APP_NAME_ELEMENT_NAME)).Value;
+            version.Major = uint.Parse(versionElement.Element(XName.Get(VERSION_MAJOR_ELEMENT_NAME)).Value);
+            version.Minor = uint.Parse(versionElement.Element(XName.Get(VERSION_MINOR_ELEMENT_NAME)).Value);
+            version.Build = uint.Parse(versionElement.Element(XName.Get(VERSION_BUILD_ELEMENT_NAME)).Value);
+            version.Revision = uint.Parse(versionElement.Element(XName.Get(VERSION_REVISION_ELEMENT_NAME)).Value);
+
+            return version;
+        }
+
+        private CCVersion GetJsonVersion(StreamReader reader)
+        {
+            using (var jReader = new JsonTextReader(reader))
+            {
+                var obj = JToken.ReadFrom(jReader);
+                var version = obj["AppVersion"].ToObject<CCVersion>();
+                return version;
             }
         }
 

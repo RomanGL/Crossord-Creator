@@ -11,13 +11,6 @@ namespace CC.Core.Services
     /// </summary>
     public class XmlListService : IListService
     {
-        private const string LIST_ELEMENT_NAME = "list";
-        private const string HEAD_ELEMENT_NAME = "head";
-        private const string WORD_ELEMENT_NAME = "word";
-        private const string ID_ELEMENT_NAME = "ID";
-        private const string ANSWER_ELEMENT_NAME = "answer";
-        private const string QUESTION_ELEMENT_NAME = "question";
-
         /// <summary>
         /// Возвращает список терминов из текстовой строки.
         /// </summary>
@@ -101,5 +94,19 @@ namespace CC.Core.Services
                 throw new CCFileException(file, "Не удалось сохранить файл.", ex);
             }
         }
+
+        private const string APP_VERSION_ELEMENT_NAME = "applicationVersion";
+        private const string APP_NAME_ELEMENT_NAME = "aplicationName";
+        private const string VERSION_MAJOR_ELEMENT_NAME = "major";
+        private const string VERSION_MINOR_ELEMENT_NAME = "minor";
+        private const string VERSION_BUILD_ELEMENT_NAME = "build";
+        private const string VERSION_REVISION_ELEMENT_NAME = "revision";
+
+        private const string LIST_ELEMENT_NAME = "list";
+        private const string HEAD_ELEMENT_NAME = "head";
+        private const string WORD_ELEMENT_NAME = "word";
+        private const string ID_ELEMENT_NAME = "ID";
+        private const string ANSWER_ELEMENT_NAME = "answer";
+        private const string QUESTION_ELEMENT_NAME = "question";
     }
 }

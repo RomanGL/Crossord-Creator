@@ -1,4 +1,5 @@
 ﻿using CC.Core.Models;
+using CC.Core.Models.IO;
 using System.IO;
 
 namespace CC.Core.Services.Interfaces
@@ -19,12 +20,6 @@ namespace CC.Core.Services.Interfaces
         /// </summary>
         /// <param name="file">Файл.</param>
         /// <param name="text">Текст для записи.</param>
-        void WriteText(IFile file, string text);
-
-        /// <summary>
-        /// Возвращает CC формат переданного файла.
-        /// </summary>
-        /// <param name="file">Файл.</param>
-        CCFileFormat GetFileFormat(IFile file);
+        void WriteText(IFile file, string text);        
     }
 }

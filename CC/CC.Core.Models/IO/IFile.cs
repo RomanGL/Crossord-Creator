@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace CC.Core.Models
+﻿namespace CC.Core.Models.IO
 {
     /// <summary>
     /// Представляет файл.
@@ -16,10 +14,5 @@ namespace CC.Core.Models
         /// Абсолютный путь к файлу.
         /// </summary>
         string Path { get; set; }
-
-        /// <summary>
-        /// Возвращает поток произвольного доступа к файлу.
-        /// </summary>
-        Stream RandomAccessStream { get; set; }
     }
 }

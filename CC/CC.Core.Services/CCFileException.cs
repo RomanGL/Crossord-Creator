@@ -1,4 +1,4 @@
-﻿using CC.Core.Models;
+﻿using CC.Core.Models.IO;
 using System;
 
 namespace CC.Core.Services
