@@ -9,17 +9,8 @@ namespace CC.Core.Services.Interfaces
     /// </summary>
     public interface IFileService
     {
-        /// <summary>
-        /// Считывает текст из файла и возвращает его.
-        /// </summary>
-        /// <param name="file">Файл.</param>
-        TextReader ReadText(IFile file);
+        string OpenListFile();
 
-        /// <summary>
-        /// Записывает текст в файл и возвращает значение, успешно ли завршилась запись.
-        /// </summary>
-        /// <param name="file">Файл.</param>
-        /// <param name="text">Текст для записи.</param>
-        void WriteText(IFile file, string text);        
+        string OpenGridFile();       
     }
 }

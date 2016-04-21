@@ -256,13 +256,6 @@ namespace Crossword_Application_Modern.ViewModel
                     Answer = answer,
                     ID = 1
                 });
-                //UpdateElementsID();
-                //Items.Add(new ListWordViewModel()
-                //{
-                //    Question = question,
-                //    Answer = answer,
-                //    ID = Count + 1
-                //});
                 Task update = new Task(UpdateElementsID);
                 update.Start();
 

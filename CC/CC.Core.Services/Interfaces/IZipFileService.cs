@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CC.Core.Models;
+using CC.Core.Models.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,6 @@ namespace CC.Core.Services.Interfaces
     /// </summary>
     public interface IZipFileService
     {
-
+        CCFileInfo GetFileInfo(IFile file);
     }
 }

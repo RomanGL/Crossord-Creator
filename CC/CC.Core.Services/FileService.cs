@@ -4,19 +4,36 @@ using CC.Core.Services.Interfaces;
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CC.Core.Services
 {
     public sealed class FileService : IFileService
     {
-        public TextReader ReadText(IFile file)
+        public FileService(IBlurService blurService)
         {
-            return File.OpenText(file.Path);
+            _blurService = blurService;
         }
 
-        public void WriteText(IFile file, string text)
+        public string OpenGridFile()
         {
-            File.WriteAllText(file.Path, text);
+            OpenFile();
+            return null;
         }
+
+        public string OpenListFile()
+        {
+            OpenFile();
+            return null;
+        }
+
+        private async void OpenFile()
+        {
+            _blurService.Blur();
+            await Task.Delay(5000);
+            _blurService.UnBlur();
+        }
+
+        private readonly IBlurService _blurService;
     }
 }

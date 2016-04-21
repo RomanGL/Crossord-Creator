@@ -24,7 +24,6 @@ namespace CCApp.Views
         public UpdatesSettingsView()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => ModernDialog.ShowMessage("Тестовое сообщение", "Заголовок окна", MessageBoxButton.OK);
         }
     }
 }

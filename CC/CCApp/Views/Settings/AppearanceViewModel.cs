@@ -66,7 +66,6 @@ namespace CCApp.Views.Settings
             this.themes.Add(new Link { DisplayName = "темная", Source = AppearanceManager.DarkThemeSource });
             this.themes.Add(new Link { DisplayName = "светлая", Source = AppearanceManager.LightThemeSource });
             this.themes.Add(new Link { DisplayName = "красное пламя", Source = new Uri("/Assets/Themes/ModernUI.RedFlame.xaml", UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "гейша", Source = new Uri("/Assets/Themes/ModernUI.Geisha.xaml", UriKind.Relative) });
 
             this.SelectedFontSize = AppearanceManager.Current.FontSize == FontSize.Large ? FontLarge : FontSmall;
             SyncThemeAndColor();

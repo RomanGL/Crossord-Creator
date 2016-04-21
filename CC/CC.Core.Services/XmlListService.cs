@@ -1,7 +1,10 @@
 ﻿using CC.Core.Models;
+using CC.Core.Models.IO;
 using CC.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Xml.Linq;
 
 namespace CC.Core.Services
@@ -9,7 +12,7 @@ namespace CC.Core.Services
     /// <summary>
     /// Представляет сервис для работы со списками терминов в формате XML.
     /// </summary>
-    public class XmlListService : IListService
+    public class XmlListService : IXmlListService
     {
         /// <summary>
         /// Возвращает список терминов из текстовой строки.
@@ -17,11 +20,11 @@ namespace CC.Core.Services
         /// <param name="file">Файл.</param>
         /// <param name="service">Сервис для работы с файлами.</param>
         /// <exception cref="CCFileException">Выбрасывается при невозможности прочитать или обработать файл.</exception>
-        public List<ListWord> GetListFromFile(IFile file, IFileService service)
+        public List<ListWord> GetListFromFile(IFile file)
         {
             try
             {
-                var document = XDocument.Load(service.ReadText(file));
+                var document = XDocument.Load(file.Path);
                 var list = new List<ListWord>();
 
                 foreach (XElement child in document.Root.Elements(XName.Get(WORD_ELEMENT_NAME)))
@@ -50,7 +53,7 @@ namespace CC.Core.Services
         /// <param name="service">Сервис для работы с файлами.</param>
         /// <exception cref="CCFileException">Выбрасывается при невозможности сериализовать 
         /// список или записать данные в файл.</exception>
-        public void SaveListFile(IEnumerable<ListWord> list, CCVersion version, IFile file, IFileService service)
+        public void SaveListFile(IEnumerable<ListWord> list, CCVersion version, IFile file)
         {
             try
             {
@@ -83,11 +86,9 @@ namespace CC.Core.Services
                 headElement.Add(listElement);
                 document.Add(headElement);
 
-                var writer = new Utf8StringWriter();
+                var writer = new StreamWriter(file.Path, false, Encoding.UTF8);
                 document.Save(writer);
 
-                string text = writer.ToString();
-                service.WriteText(file, text);
             }
             catch (Exception ex)
             {

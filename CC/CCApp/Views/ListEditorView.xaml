@@ -1,5 +1,4 @@
-﻿<c:CCView x:Class="CCApp.Views.ListEditorView"
-          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<c:CCView xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,15 +7,18 @@
           xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
           xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
           xmlns:beh="clr-namespace:CCApp.Behaviors"
+          xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+          x:Class="CCApp.Views.ListEditorView"
           mc:Ignorable="d"
           mvvm:ViewModelLocator.AutoWireViewModel="True"
           d:DesignHeight="300"
           d:DesignWidth="300">
+
     <c:CCView.Resources>
-        <Style TargetType="mui:ModernButton"
+        <Style TargetType="{x:Type mui:ModernButton}"
                x:Key="LeftButton">
             <Setter Property="Margin"
-                    Value="0,0,7,0" />
+                    Value="0,0,7,7" />
             <Setter Property="EllipseDiameter"
                     Value="32" />
             <Setter Property="IconHeight"
@@ -24,20 +26,70 @@
             <Setter Property="IconWidth"
                     Value="16" />
         </Style>
+
+        <DataTemplate x:Key="ListWordTemplate">
+            <Grid Margin="-2,0,0,4"
+                  RenderTransformOrigin="0.5,0.5">
+
+                <Grid.RenderTransform>
+                    <TranslateTransform />
+                </Grid.RenderTransform>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      MinWidth="30" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Style="{StaticResource Heading1}"
+                           Text="{Binding ID}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,7,0"
+                           FontSize="20" />
+
+                <StackPanel Grid.Column="1"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Question}" />
+                    <TextBlock Text="{Binding Answer}"
+                               FontWeight="Bold" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </c:CCView.Resources>
 
     <Grid Margin="0,0,26,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition/>
+            <RowDefinition />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Text="Безымянный список"
                    Style="{StaticResource Heading2}" />
-        
-        <ListBox Grid.Row="1"/>
+
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding Words}"
+                 ItemTemplate="{StaticResource ListWordTemplate}"
+                 IsSynchronizedWithCurrentItem="True"
+                 Margin="0,7">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel>
+                        <i:Interaction.Behaviors>
+                            <ei:FluidMoveBehavior AppliesTo="Children"
+                                                  Duration="0:0:0.15">
+                                <ei:FluidMoveBehavior.EaseY>
+                                    <ExponentialEase EasingMode="EaseInOut"
+                                                     Exponent="3" />
+                                </ei:FluidMoveBehavior.EaseY>
+                            </ei:FluidMoveBehavior>
+                        </i:Interaction.Behaviors>
+                    </VirtualizingStackPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
 
         <Grid Grid.Row="2"
               Margin="0,0,0,14">
@@ -53,43 +105,52 @@
 
             <TextBlock Text="Вопрос:"
                        VerticalAlignment="Center" />
-            <TextBlock Text="Ответ:" 
+            <TextBlock Text="Ответ:"
                        Grid.Row="1"
                        VerticalAlignment="Center"
                        Margin="0,5,0,0" />
 
             <TextBox Grid.Column="1"
                      Margin="5,0,0,0"
-                     Height="24" />
+                     Height="24"
+                     Text="{Binding CurrentQuestion, Mode=TwoWay}" />
             <TextBox Grid.Row="1"
                      Grid.Column="1"
                      Margin="5,5,0,0"
-                     Height="24"/>
+                     Height="24"
+                     Text="{Binding CurrentAnswer, Mode=TwoWay}" />
             <Button Grid.RowSpan="2"
                     Grid.Column="2"
                     Margin="5,0,0,0"
                     Width="52"
-                    Content="+" />
+                    Content="+"
+                    Command="{Binding AddPairCommand}" />
         </Grid>
-        
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="3">
+
+        <WrapPanel Orientation="Horizontal"
+                   Grid.Row="3"
+                   Margin="0,0,0,-7">
             <mui:ModernButton IconData="{StaticResource NewFileIcon}"
                               Style="{StaticResource LeftButton}"
-                              ToolTip="Создать"/>
+                              ToolTip="Создать"
+                              Content="Создать" />
             <mui:ModernButton IconData="{StaticResource OpenIcon}"
                               Style="{StaticResource LeftButton}"
-                              ToolTip="Открыть..." />
+                              Command="{Binding OpenCommand}"
+                              ToolTip="Открыть..."
+                              Content="Открыть..." />
             <mui:ModernButton IconData="{StaticResource SaveIcon}"
                               Style="{StaticResource LeftButton}"
-                              ToolTip="Сохранить" 
-                              Command="{Binding SaveCommand}"
-                              CommandParameter="False"/>
+                              ToolTip="Сохранить"
+                              Command="{Binding SaveCommand, Mode=OneTime}"
+                              CommandParameter="false"
+                              Content="Сохранить" />
             <mui:ModernButton IconData="{StaticResource SaveAsIcon}"
                               Style="{StaticResource LeftButton}"
                               ToolTip="Сохранить как..."
-                              Command="{Binding SaveCommand}"
-                              CommandParameter="True" />
-        </StackPanel>
+                              Command="{Binding SaveCommand, Mode=OneTime}"
+                              CommandParameter="true"
+                              Content="Сохранить как..." />
+        </WrapPanel>
     </Grid>
 </c:CCView>

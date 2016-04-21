@@ -17,40 +17,42 @@ namespace CC.Core.Services
     {
         public FileInfoService(IZipFileService zipFileService)
         {
-
+            _zipFileService = zipFileService;
         }
 
         public CCFileInfo GetFileInfo(IFile file)
         {
             try
             {
-                var info = new CCFileInfo();
-                info.Name = file.Name;
-                info.Path = file.Path;
-
                 var streamReader = new StreamReader(file.Path);
                 char fChar = (char)streamReader.Peek();
 
                 if (fChar == '<' && file.Name.EndsWith(".cwtf"))
                 {
+                    var info = new CCFileInfo();
+                    info.Name = file.Name;
+                    info.Path = file.Path;
                     info.Type = CCFileType.cwtf;
                     info.Version = new CCVersion("Crossword Creator 1.x");
                     return info;
                 }
                 else if (fChar == '<' && file.Name.EndsWith(".cwgf"))
                 {
+                    var info = new CCFileInfo();
+                    info.Name = file.Name;
+                    info.Path = file.Path;
                     info.Type = CCFileType.cwgf;
                     info.Version = new CCVersion("Crossword Creator 1.x");
                     return info;
                 }
                 else
                 {
-
+                    return _zipFileService.GetFileInfo(file);
                 }
             }
             catch (Exception ex)
             {
-                throw new CCFileException(file, "Не удалось обработать файл.", ex);
+                throw new CCFileException(file, "Файл поврежден либо имеет неизвестный формат.", ex);
             }
         }
 
@@ -80,6 +82,8 @@ namespace CC.Core.Services
                 return version;
             }
         }
+
+        private readonly IZipFileService _zipFileService;
 
         private const string APP_VERSION_ELEMENT_NAME = "applicationVersion";
         private const string APP_NAME_ELEMENT_NAME = "aplicationName";

@@ -2,5 +2,3 @@ obj
 bin
 /CC Setup/CC Setup/CC Setup
 .vs
-/CC/.vs/CC/v14/*.suo
-*.suo

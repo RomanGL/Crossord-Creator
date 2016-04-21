@@ -1,14 +1,12 @@
 ﻿using CC.Core.Services;
 using CC.Core.Services.Interfaces;
-using FirstFloor.ModernUI.Windows.Controls;
+using CCApp.Services;
+using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 using Prism.Unity;
 using System;
 using System.Globalization;
 using System.Windows;
-using Microsoft.Practices.Unity;
-using System.Windows.Controls;
-using System.Collections.Generic;
 
 namespace CCApp.Common
 {
@@ -24,21 +22,25 @@ namespace CCApp.Common
 
         protected override DependencyObject CreateShell()
         {
-            return new MainWindow();
+            return Container.Resolve<MainWindow>();
         }
 
         protected override void InitializeShell()
         {            
-            App.Current.MainWindow = MainWindow;            
+            App.Current.MainWindow = MainWindow;           
             MainWindow.Show();
         }
 
         protected override void ConfigureContainer()
         {
             Container.RegisterType<INavigationParametersResolver, NavigationParametersResolver>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IListService, JsonListService>("JsonListService", new ContainerControlledLifetimeManager());
-            Container.RegisterType<IListService, XmlListService>("XmlListService", new ContainerControlledLifetimeManager());
+            Container.RegisterType<ICryptographyService, CryptographyService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IFileService, FileService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IXmlListService, XmlListService>(new ContainerControlledLifetimeManager());            
+            Container.RegisterType<IZipFileService, ZipFileService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFileInfoService, FileInfoService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IBlurService, BlurService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IMessagesService, MessagesService>(new ContainerControlledLifetimeManager());
 
             base.ConfigureContainer();
         }
